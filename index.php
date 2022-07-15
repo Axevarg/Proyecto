@@ -34,7 +34,7 @@ $resultado = $conexion->query($consulta);
   </head>
   <body >
 
-
+<header> 
     <nav class="navbar" style="background-color: #ECA5E8;">
       <div class="container-fluid">
         <h5 class="navbar-brand fst-italic  fs-4" href="#" >
@@ -83,6 +83,43 @@ $resultado = $conexion->query($consulta);
       </div>
     </nav>
 
+</header> 
+
+
+<main> 
+
+    <!--<div class="container">
+
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+
+    
+
+        <div class="col">
+          <div class="card shadow-sm">
+          <img src="data:image/jpg;base64,<?php echo base64_encode($row['imagen']); ?>">
+
+          <div class="card-body">
+            <h4 class="card-title"> <?PHP echo $row['nombre']; ?></h4>
+              <h5 class="card-text"> <?PHP echo $row['partido']; ?></h5>
+              <p class="card-text"> <?PHP echo $row['estado']; ?></p>
+              <div class="btn-group">
+                <a href="" id="boton2" class="btn btn-primary">Informacion</a>
+              </div>
+              <a href="" id="boton1" class="btn btn-success" >Votar</a>
+         </div>
+                
+        </div>
+              
+    </div>
+    </div>-->
+
+    <div class="b-example-divider"></div>
+
+  <div class="container px-4 py-5" id="custom-cards">
+    <h2 class="pb-2 border-bottom">Candidatos</h2>
+
+
+  <div class="row row-cols-1 row-cols-lg-3 align-items-stretch g-4 py-5">
 
     <?PHP
 		  	//Ciclo para recorrer el objeto y sus datos
@@ -92,36 +129,35 @@ $resultado = $conexion->query($consulta);
 				$contenido = $datos;
 				
 			  	?>
-
-
-  <div class="album py-5" >
-    <div class="container " >
-    <div class="col-lg-4">
       <div class="col">
-        <div class="card shadow-sm" id="cuadro">
-         <img src="data:image/jpg;base64,<?php echo base64_encode($row['imagen']); ?>">
-
-          <div class="card-body">
-            <h4 class="card-title"> <?PHP echo $row['nombre']; ?></h4>
-            <h5 class="card-text"> <?PHP echo $row['partido']; ?></h5>
-            <p class="card-text"> <?PHP echo $row['estado']; ?></p>
-            <div class="d-flex justify-content-between align-items-center">
-              <div class="btn-group">
-                <a href="" id="boton2" class="btn btn-primary">Informacion</a>
-              
-              </div>
-              <a href="" id="boton1" class="btn btn-success" >Votar</a>
-              
-            </div>
+        <div class="card card-cover h-100 overflow-hidden text-white bg-dark rounded-4 shadow-lg" style="background-image: url('unsplash-photo-1.jpg');">
+          <div class="d-flex flex-column h-100 p-5 pb-3 text-white text-shadow-1">
+          <img src="data:image/jpg;base64,<?php echo base64_encode($row['imagen']); ?>">
+            <h2 class="pt-5 mt-5 mb-4 display-6 lh-1 fw-bold"><?PHP echo $row['nombre']; ?></h2>
+            <ul class="d-flex list-unstyled mt-auto">
+              <li class="me-auto">
+                <img src="https://cdn-icons-png.flaticon.com/512/6161/6161809.png" alt="Bootstrap" width="32" height="32" class="rounded-circle border border-white">
+              </li>
+              <li class="d-flex align-items-center me-3">
+                <svg class="bi me-2" width="1em" height="1em"><use xlink:href="#geo-fill"/></svg>
+                <small><?PHP echo $row['partido']; ?></small>
+              </li>
+              <li class="d-flex align-items-center">
+                <svg class="bi me-2" width="1em" height="1em"><use xlink:href="#calendar3"/></svg>
+                <small><?PHP echo $row['estado']; ?></small>
+              </li>
+            </ul>
           </div>
         </div>
       </div>
+      <?PHP } ?>
+
     </div>
   </div>
 
-  <?PHP
-			}
-			?>
+
+
+</main> 
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
   </body>
