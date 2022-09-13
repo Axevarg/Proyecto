@@ -2,6 +2,8 @@
 
 require 'conexion.php';
 $conexion = new mysqli($serverName, $userName, $password, $dbName);
+$consulta = "SELECT * FROM productos";
+$resultado = $conexion->query($consulta);
 
 ?>
 
@@ -11,12 +13,14 @@ $conexion = new mysqli($serverName, $userName, $password, $dbName);
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Bootstrap demo</title>
-
-<script src="main.js" ></script>
+    <title>SEGVE</title>
+    
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
     <link href="/docs/5.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
-
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link href="https://fonts.googleapis.com/css2?family=Edu+NSW+ACT+Foundation&family=Roboto+Condensed&display=swap" rel="stylesheet">
     <!-- Favicons -->
 <link rel="apple-touch-icon" href="/docs/5.2/assets/img/favicons/apple-touch-icon.png" sizes="180x180">
 <link rel="icon" href="/docs/5.2/assets/img/favicons/favicon-32x32.png" sizes="32x32" type="image/png">
@@ -30,8 +34,8 @@ $conexion = new mysqli($serverName, $userName, $password, $dbName);
   </head>
   <body >
 
-
-  <nav class="navbar" style="background-color: #2f9d94;">
+<header> 
+    <nav class="navbar" style="background-color: #2f9d94;">
       <div class="container-fluid">
         <h5 class="navbar-brand fst-italic  fs-4" href="#" >
           <img src="./img/logo.jpeg" alt="" width="180px" height="62px" class="d-inline-block align-text-top">
@@ -77,124 +81,63 @@ $conexion = new mysqli($serverName, $userName, $password, $dbName);
 
       </div>
     </nav>
-    <br>
 
-    <div class="card shadow-sm" id="cuadro">
-       
-
-    <div class="container centrado" id="agregar">
-		<h2 class="letraBlanca">Agregar Producto</h2>
+</header> 
 
 
-		<form action="candidatos.php" method="POST" enctype="multipart/form-data">
-			<div class="row">
+<main> 
+<div class="container px-4 py-5" id="custom-cards">
+    <h2 class="pb-2 border-bottom">Productos</h2>
+<div class="row row-cols-1 row-cols-lg-4 align-items-stretch g-4 py-2">
 
-				<div class="col-lg-12">
-					<br>
-				</div>
+<?PHP
+    //Ciclo para recorrer el objeto y sus datos
+  while($row = $resultado->fetch_assoc())
+  {
+    $datos = "productos".$row['id']."\n".$row['nombre']."\n".$row['marca']."\n".$row['categoria']."\n".$row['descripcion']."\n".$row['imagen'];
+    $contenido = $datos;
+    
+      ?>
+  <div class="col">
+    <div class="card card-cover h-100 overflow-hidden text-black bg-light rounded-5 shadow-lg" style="background-image: url('unsplash-photo-1.jpg');">
+      <div class="d-flex flex-column h-100 p-4 pb-4 text-black text-shadow-1">
+      <img width="100%" height="200" src="data:image/jpg;base64,<?php echo base64_encode($row['imagen']); ?>">
+        <h4 class="pt-1 mt-3 mb-3 lh-1 fw-bold"><?PHP echo $row['nombre']; ?></h4>
+        <ul class="d-flex list-unstyled mt-auto">
+          <li class="me-auto">
+           
+            <h4 class="pt-1 mt-3 mb-3 lh-1 fw-bold">$ <?PHP echo $row['precio']; ?></h4>
+          </li>
+          <li class="d-flex align-items-center me-3">
+            <svg class="bi me-2" width="1em" height="1em"><use xlink:href="#geo-fill"/></svg>
+            <small><?PHP echo $row['marca']; ?></small>
+          </li>
+          <li class="d-flex align-items-center">
+            <svg class="bi me-2" width="1em" height="1em"><use xlink:href="#calendar3"/></svg>
+            <small><?PHP echo $row['categoria']; ?></small>
+          </li>
+        </ul>
 
-				<div class="col-lg-8">
-					<input class="form-control" name="nombreCandi" type="text" placeholder="Nombre del producto" required />
-				</div>
-
-        <div class="col-lg-4">
-					<input class="form-control" name="precio" type="number" placeholder="Precio" required />
-				</div>
-
-				<div class="col-lg-12">
-					<br>
-				</div>
-
-				<div class="col-lg-4">
-					<input class="form-control" type="text" name="marca" placeholder="Marca" required />
-				</div>
-
-        <div class="col-lg-4">
-					<input class="form-control" type="number" name="existencia" placeholder="Existencia" required />
-				</div>
-
-				<div class="col-lg-4">
-
-          <?php 
-            $conexion = new mysqli("localhost","root","","sigve");
-            $query=mysqli_query($conexion,"SELECT id, categoria FROM categoria");
-           ?>
-        <select class="form-control" name="categoria">
-        <?php    
-		 while($categoria = mysqli_fetch_array($query)){
-		     ?>
-		    <option name="categoria" value="<?php  echo $categoria['categoria']?>" required><?php  echo $categoria['categoria']?></option>
+        <li class="d-flex align-items-center me-3">
+        <button  class="w3-btn w3-ripple w3-red"><img  width="20" height="20" src="eliminar.png"></button>
+        <button class="w3-btn w3-ripple w3-blue"><img  width="20" height="20" src="actualizar.png"></button>
+        </li>
         
 
-        <?php
-		   }
-		   
-		 ?>
+      </div>
+    </div>
+  </div>
 
-	     </select>
+  <?PHP } ?>
 
-				</div>
-				
-
-				<div class="col-lg-12">
-					<br>
-				</div>
-
-                <div class="col-lg-4">
-					<textarea class="form-control" name="descripcion" placeholder="Descripcion" rows="4" required /></textarea>
-				</div>
-
-				<div class="col-lg-4">
-					
-                    <input type="file"  name="imagen" id="imagenCandi" class="form-control" REQUIRED />
-
-                    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-                    <script>
-                        $("#imagenCandi").on("change", function(){
-                            var imagen =$(this)[0].files[0];
-                            var fileReader =new FileReader();
-                            fileReader.readAsDataURL(imagen);
-                            fileReader.onload = function(){
-                                $("#cargar").append("<img src='"+ fileReader.result +"'>");
-                            }
-
-                        });
-
-                    </script>
-
-				</div>
-
-				<div class="col-lg-4">
-                    <div class="card shadow-sm" id="cuadro">
-                        <div id="cargar"></div>
-                    </div>
-                    <br>
-				</div>
-
-                
-
-				<div class="col-lg-10">
-				</div>
-
-				<div class="col-lg-2">
-					<input type="submit" class="btn btn-primary" value="Guardar">
-				</div>
-
-
-			</div>
-
-
-		</form>
-	</div>
-
+</div>
 </div>
 
 
-<br>
 
 
-<br>
+</main> 
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
   </body>
 </html>

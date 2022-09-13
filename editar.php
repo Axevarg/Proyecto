@@ -83,10 +83,23 @@ $conexion = new mysqli($serverName, $userName, $password, $dbName);
        
 
     <div class="container centrado" id="agregar">
-		<h2 class="letraBlanca">Agregar Producto</h2>
+		<h2 class="letraBlanca">Editar Producto</h2>
 
 
-		<form action="candidatos.php" method="POST" enctype="multipart/form-data">
+        <?php
+			$id = $_GET['id'];
+
+			$conexion = new mysqli("localhost","root","","peliculas");
+			$consulta = "Select * from productos where id=".$id;
+
+			$resultado = $conexion->query($consulta);
+		?>
+		<?php 
+			while($row = $resultado->fetch_assoc())
+            {		
+		?>
+
+		<form action="actualizar.php" method="POST" enctype="multipart/form-data">
 			<div class="row">
 
 				<div class="col-lg-12">
@@ -94,11 +107,11 @@ $conexion = new mysqli($serverName, $userName, $password, $dbName);
 				</div>
 
 				<div class="col-lg-8">
-					<input class="form-control" name="nombreCandi" type="text" placeholder="Nombre del producto" required />
+					<input class="form-control" name="nombreCandi" type="text" placeholder="Nombre del producto" value="<?php echo $row['nombre'];?>" required />
 				</div>
 
         <div class="col-lg-4">
-					<input class="form-control" name="precio" type="number" placeholder="Precio" required />
+					<input class="form-control" name="precio" type="number" placeholder="Precio" value="<?php echo $row['precio'];?>" required />
 				</div>
 
 				<div class="col-lg-12">
@@ -186,7 +199,7 @@ $conexion = new mysqli($serverName, $userName, $password, $dbName);
 
 		</form>
 	</div>
-
+	<?php }?>
 </div>
 
 

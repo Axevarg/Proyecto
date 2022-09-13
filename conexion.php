@@ -3,7 +3,7 @@
 $serverName = "localhost";   
 $userName = "root";
 $password = "";
-$dbName = "votaciones";
+$dbName = "sigve";
 
 $conexion = new mysqli($serverName,$userName,$password,$dbName);
 

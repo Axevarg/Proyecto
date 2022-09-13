@@ -1,16 +1,18 @@
 <?PHP
+$id = $_POST['id'];
 $nombre = $_POST["nombreCandi"];
-$partido = $_POST["partido"];
-$estado = $_POST["estado"];
+$marca = $_POST["marca"];
+$categoria = $_POST["categoria"];
 $descripcion = $_POST["descripcion"];
 $imagen = addslashes(file_get_contents($_FILES['imagen']['tmp_name']));
-
+$existencia= $_POST["existencia"];
+$precio= $_POST["precio"];
 
 include('conexion.php');
 $conexion = new mysqli($serverName, $userName, $password, $dbName);
 
-$consulta = "INSERT INTO candidatos (id, nombre, partido, estado, descripcion, imagen) 
-	VALUES (null,'$nombre', '$partido', '$estado', '$descripcion', '$imagen')";
+$consulta = "INSERT INTO productos (id, nombre, marca, categoria, descripcion, imagen, existencia, precio) 
+	VALUES (null,'$nombre', '$marca', '$categoria', '$descripcion', '$imagen', '$existencia', '$precio')";
 $ejecutar = mysqli_query($conexion, $consulta);
 
 echo "Registro correcto <br>";
